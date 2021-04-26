@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-// import Character from './components/CharacterCard';
+import Search from './components/Search';
+import Character from './components/CharacterCard';
+// import Filters from './components/Filters';
 import './App.css';
-import './components/CharacterContainer.scss';
 
 const App = () => {
 	const [ characters, setCharacters ] = useState([]);
@@ -34,32 +35,17 @@ const App = () => {
 	return (
 		<div>
 			<div>
-				<input onChange={handleChange} value={value} />
+				<Search handleChange={handleChange} value={value} />
 				<label>Status</label>
-				<input onChange={handleChangeStatus} type="radio" value="alive" name="status" /> Alive
-				<input onChange={handleChangeStatus} type="radio" value="dead" name="status" /> Dead
-				<input onChange={handleChangeStatus} type="radio" value="unknown" name="status" /> Unknown
+				<div>
+					<input onChange={handleChangeStatus} type="radio" value="alive" name="status" /> Alive
+					<input onChange={handleChangeStatus} type="radio" value="dead" name="status" /> Dead
+					<input onChange={handleChangeStatus} type="radio" value="unknown" name="status" /> Unknown
+				</div>
 				<button onClick={handleClick}>Search character</button>
 			</div>
 			<div className="App">
-				{characters.map((character) => (
-					<div className="CharacterContainer" key={character.id}>
-						<div>
-							<img className="CharacterContainer" alt={character.name} src={character.image} />
-						</div>
-						<div>
-							<h2 key={character.id}>{character.name}</h2>
-							<p>
-								{character.status}
-								{character.species}
-							</p>
-							<p>Last known location:</p>
-							<p>{character.location.name}</p>
-							<p>First seen in:</p>
-							<p>{character.origin.name}</p>
-						</div>
-					</div>
-				))}
+				{characters.map((character) => <Character key={character.id} character={character} />)}
 				{/* <button onClick={handleClick}>Next page</button> */}
 			</div>
 		</div>

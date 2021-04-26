@@ -4,6 +4,11 @@
 	color: white;
 	display: flex;
 	border-radius: 5%;
+
+	img {
+		border-radius: 5%;
+		margin: 5px 5px 0 5px;
+	}
 	div:last-child {
 		margin: 5px;
 		width: 230px;
