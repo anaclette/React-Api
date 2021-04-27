@@ -10,16 +10,19 @@ const App = () => {
 	const [ value, setValue ] = useState('');
 	const [ search, setSearch ] = useState(0);
 	const [ status, setStatus ] = useState('');
+	const [ page, setPage ] = useState(1);
+	// const nextPage = [];
 	useEffect(
 		() => {
-			fetch(`https://rickandmortyapi.com/api/character/?name=${value}&status=${status}`)
+			fetch(`https://rickandmortyapi.com/api/character/?page=${page}?name=${value}&status=${status}`)
 				.then((res) => res.json())
 				.then((data) => {
 					// console.log(data.info.next);
 					setCharacters(data.results);
+					// nextPage.push(data.info.next);
 				});
 		},
-		[ search ]
+		[ search, page ]
 	);
 
 	const handleChange = (e) => {
@@ -30,6 +33,11 @@ const App = () => {
 	};
 	const handleChangeStatus = (e) => {
 		setStatus(e.target.value);
+	};
+
+	const handleClickNext = () => {
+		setPage(page + 1);
+		console.log(page);
 	};
 	return (
 		<div>
@@ -45,7 +53,9 @@ const App = () => {
 			</div>
 			<div className="App">
 				{characters.map((character) => <Character key={character.id} character={character} />)}
-				{/* <button onClick={handleClick}>Next page</button> */}
+			</div>
+			<div className="Search">
+				<button onClick={handleClickNext}>Next page</button>
 			</div>
 		</div>
 	);
