@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Search from './components/Search';
 import Character from './components/CharacterCard';
-// import Filters from './components/Filters';
+import Filters from './components/Filters';
 import './App.css';
+import './components/Search.scss';
 
 const App = () => {
 	const [ characters, setCharacters ] = useState([]);
@@ -20,9 +21,7 @@ const App = () => {
 		},
 		[ search ]
 	);
-	//   const handleClick = () => {
-	// setCharacters([...characters], )
-	//   }
+
 	const handleChange = (e) => {
 		setValue(e.target.value);
 	};
@@ -35,14 +34,14 @@ const App = () => {
 	return (
 		<div>
 			<div>
-				<Search handleChange={handleChange} value={value} />
-				<label>Status</label>
-				<div>
-					<input onChange={handleChangeStatus} type="radio" value="alive" name="status" /> Alive
-					<input onChange={handleChangeStatus} type="radio" value="dead" name="status" /> Dead
-					<input onChange={handleChangeStatus} type="radio" value="unknown" name="status" /> Unknown
+				<div className="Search">
+					<Search handleChange={handleChange} value={value} />
+					<label>Status</label>
+					<div>
+						<Filters handleChangeStatus={handleChangeStatus} status={status} />
+					</div>
+					<button onClick={handleClick}>Search character</button>
 				</div>
-				<button onClick={handleClick}>Search character</button>
 			</div>
 			<div className="App">
 				{characters.map((character) => <Character key={character.id} character={character} />)}
